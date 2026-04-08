@@ -363,7 +363,7 @@
   <button class="prompt-toggle" onclick="togglePrompt()">⚙ настроить промпт</button>
   <div class="prompt-section" id="promptSection">
     <div class="label">Системный промпт</div>
-    <textarea id="systemPrompt" rows="4">You are a precise answer assistant. Look at the screen image carefully and read ALL visible text. Find any question, quiz, test item, or problem on the screen. Respond with ONLY the correct answer — no explanation, no punctuation, no preamble. If multiple choice, say just the letter and option text. If it's a fill-in or open question, give the shortest correct answer. Always attempt to answer even if unsure.</textarea>
+    <textarea id="systemPrompt" rows="4">ANSWER ONLY. No questions, no explanations, no repeating text from screen. Output the single correct answer in 1-5 words. Nothing else. Ever.</textarea>
   </div>
 </div>
 
@@ -513,12 +513,12 @@
             role: 'user',
             parts: [
               { inline_data: { mime_type: 'image/jpeg', data: imageData } },
-              { text: 'What is on the screen? Give the answer.' }
+              { text: 'What is the answer? Reply with the answer only, nothing else.' }
             ]
           }],
           generationConfig: {
-            maxOutputTokens: 300,
-            temperature: 0.2
+            maxOutputTokens: 50,
+            temperature: 0.1
           }
         })
       });
@@ -532,10 +532,11 @@
       }
 
       const answer = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+      const shortAnswer = answer.split('\n')[0].slice(0, 120);
 
-      if (answer && answer.length > 0) {
-        addLog(answer, 'answer');
-        speak(answer);
+      if (shortAnswer && shortAnswer !== '?') {
+        addLog(shortAnswer, 'answer');
+        speak(shortAnswer);
       } else {
         addLog('[empty response from model]', 'info');
       }
