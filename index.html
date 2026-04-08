@@ -363,7 +363,7 @@
   <button class="prompt-toggle" onclick="togglePrompt()">⚙ настроить промпт</button>
   <div class="prompt-section" id="promptSection">
     <div class="label">Системный промпт</div>
-    <textarea id="systemPrompt" rows="4">Ты смотришь на экран. Кратко и чётко назови правильный ответ на вопрос который видишь. Только ответ, без объяснений. Если вопроса нет — молчи (ответь пустой строкой).</textarea>
+    <textarea id="systemPrompt" rows="4">You are a precise answer assistant. Look at the screen and identify any question, quiz, or test item visible. Respond with ONLY the correct answer — no explanation, no punctuation, no preamble. If multiple choice, say just the letter and option text. If it's a fill-in or open question, give the shortest correct answer. If there is no question visible, respond with an empty string and nothing else.</textarea>
   </div>
 </div>
 
@@ -479,7 +479,7 @@
     if (!text || text.trim() === '') return;
     synth.cancel();
     const utt = new SpeechSynthesisUtterance(text);
-    utt.lang = 'ru-RU';
+    utt.lang = 'en-US';
     utt.rate = 1.05;
     utt.pitch = 1;
 
@@ -513,7 +513,7 @@
             role: 'user',
             parts: [
               { inline_data: { mime_type: 'image/jpeg', data: imageData } },
-              { text: 'Что на экране? Дай ответ.' }
+              { text: 'What is on the screen? Give the answer.' }
             ]
           }],
           generationConfig: {
