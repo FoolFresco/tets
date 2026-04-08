@@ -363,7 +363,7 @@
   <button class="prompt-toggle" onclick="togglePrompt()">⚙ настроить промпт</button>
   <div class="prompt-section" id="promptSection">
     <div class="label">Системный промпт</div>
-    <textarea id="systemPrompt" rows="4">You are a precise answer assistant. Look at the screen and identify any question, quiz, or test item visible. Respond with ONLY the correct answer — no explanation, no punctuation, no preamble. If multiple choice, say just the letter and option text. If it's a fill-in or open question, give the shortest correct answer. If there is no question visible, respond with an empty string and nothing else.</textarea>
+    <textarea id="systemPrompt" rows="4">You are a precise answer assistant. Look at the screen image carefully and read ALL visible text. Find any question, quiz, test item, or problem on the screen. Respond with ONLY the correct answer — no explanation, no punctuation, no preamble. If multiple choice, say just the letter and option text. If it's a fill-in or open question, give the shortest correct answer. Always attempt to answer even if unsure.</textarea>
   </div>
 </div>
 
@@ -537,7 +537,7 @@
         addLog(answer, 'answer');
         speak(answer);
       } else {
-        addLog('— нет вопроса', 'info');
+        addLog('[empty response from model]', 'info');
       }
 
       setStatus('active');
